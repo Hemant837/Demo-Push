@@ -1,0 +1,13 @@
+Document
+  |
+  └── <html>
+        |
+        └── <head>
+        |     |
+        |     └── <h1> (Text: "Title")
+        |
+        └── <body>
+              |
+              └── <input type="text" name="Name">
+              |
+              └── <input type="button" value="Submit">
