@@ -41,20 +41,23 @@ function logPostsAndActivityTime() {
     "Before Creating post, user Last Activity Time:",
     lastUserActivityTime
   );
-  console.log("After creating posts:");
-  console.log(posts);
+  console.log("After creating posts:", posts);
 }
 
-// Chainning Of Promises
-createPost()
-  .then(() => updateLastUserActivityTime())
-  .then(logPostsAndActivityTime)
-  .then(() => deletePost())
-  .then((deletedPost) => {
-    console.log("Deleted Post:");
-    console.log(deletedPost);
-    console.log("New set of Posts:");
-    console.log(posts);
+// Chainning Of Promises with Promsie all and async await
+
+let waitingforUser = Promise.all([createPost(), updateLastUserActivityTime()]);
+async function loadingData() {
+  try {
+    await waitingforUser;
+    logPostsAndActivityTime();
+    const deletedPost = await deletePost();
+    console.log("Deleted Post:", deletedPost);
+    console.log("New set of Posts:", posts);
     console.log("User Last Activity Time:", lastUserActivityTime);
-  })
-  .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+loadingData();
